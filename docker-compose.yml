@@ -1,0 +1,20 @@
+version: '3'
+services:
+  web:
+    stdin_open: true
+    build: 
+      context: . # where do we take all the files and folders to build the image
+      dockerfile: Dockerfile.dev # location of the dockerfile that will be used
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
